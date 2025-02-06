@@ -1,21 +1,22 @@
-export const fetchJobs = async () => {
+export const fetchJobs = async (keyword: string) => {
   try {
     const response = await fetch(
-      'https://api.brightdata.com/datasets/v3/trigger?dataset_id=gd_lpfll7v5hcqtkxl6l&include_errors=true&type=discover_new&discover_by=keyword',
+      `https://brightdata.com/cp/data_api/gd_lpfll7v5hcqtkxl6l/keyword?id=hl_c6db08c4&keyword=${keyword}`,
       {
-        method: 'POST',
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${process.env.EXPO_PUBLIC_BRIGHTDATA_API_KEY}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify([]),
       }
     );
 
-    const data = await response.json();
+    const text = await response.text(); // Get the response as text
+    console.log('Response:', text); // Log the response
+    const data = JSON.parse(text); // Parse the text as JSON
     return data;
   } catch (error) {
-    console.error(error);
+    console.error('Error while fetching jobs! ', error);
     return null;
   }
 };
