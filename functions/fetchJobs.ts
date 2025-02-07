@@ -1,20 +1,34 @@
-import axios from 'axios';
-
-const API_KEY = process.env.EXPO_PUBLIC_BRIGHTDATA_API_KEY;
-const DATASET_ID = 'gd_lpfll7v5hcqtkxl6l';
-const URL = `https://api.brightdata.com/datasets/v3/trigger?dataset_id=${DATASET_ID}&include_errors=true&type=discover_new&discover_by=keyword`;
-
-export const fetchJobs = async (keyword: string) => {
+export const fetchJobs = async (filters: {
+  location: string;
+  keyword: string;
+  country?: string;
+  time_range?: string;
+  job_type?: string;
+  experience_level?: string;
+  remote?: string;
+  company?: string;
+}) => {
   try {
-    const response = await axios.get(URL, {
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data.data || [];
-  } catch (error) {
-    console.error('Error while fetching jobs ', error);
+    const requestBody = [filters];
+    const response = await fetch(
+      'https://api.brightdata.com/datasets/v3/trigger?dataset_id=gd_lpfll7v5hcqtkxl6l&include_errors=true&type=discover_new&discover_by=keyword',
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.EXPO_PUBLIC_BRIGHTDATA_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
+    if (!response.ok) {
+      throw new Error('Error while fetching jobs');
+    }
+
+    const data = await response.json();
+    console.log('Fetched jobs: ', data);
+    return data;
+  } catch (e) {
+    console.log('Error: ', e);
     return [];
   }
 };
