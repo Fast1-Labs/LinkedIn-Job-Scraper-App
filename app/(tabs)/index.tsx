@@ -23,6 +23,12 @@ const HomeScreen = () => {
   const [remote, setRemote] = useState('');
   const [company, setCompany] = useState('');
 
+  // State for picker visibility
+  const [showTimeRangePicker, setShowTimeRangePicker] = useState(false);
+  const [showJobTypePicker, setShowJobTypePicker] = useState(false);
+  const [showExperienceLevelPicker, setShowExperienceLevelPicker] = useState(false);
+  const [showRemotePicker, setShowRemotePicker] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [jobs, setJobs] = useState<any[]>([]);
   const [error, setError] = useState('');
@@ -82,35 +88,63 @@ const HomeScreen = () => {
             className="mb-2 rounded-md border border-gray-300 p-2"
           />
 
-          {/* Dropdown Filters */}
-          <Picker selectedValue={timeRange} onValueChange={(item: any) => setTimeRange(item)}>
-            <Picker.Item label="Any time" value="Any time" />
-            <Picker.Item label="Past 24 hours" value="Past 24 hours" />
-            <Picker.Item label="Past week" value="Past week" />
-            <Picker.Item label="Past month" value="Past month" />
-          </Picker>
+          {/* Toggleable Dropdown Filters */}
+          <TouchableOpacity
+            onPress={() => setShowTimeRangePicker(!showTimeRangePicker)}
+            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            <Text>{timeRange || 'Select Time Range'}</Text>
+          </TouchableOpacity>
+          {showTimeRangePicker && (
+            <Picker selectedValue={timeRange} onValueChange={(item) => setTimeRange(item)}>
+              <Picker.Item label="Any time" value="Any time" />
+              <Picker.Item label="Past 24 hours" value="Past 24 hours" />
+              <Picker.Item label="Past week" value="Past week" />
+              <Picker.Item label="Past month" value="Past month" />
+            </Picker>
+          )}
 
-          <Picker selectedValue={jobType} onValueChange={(item: any) => setJobType(item)}>
-            <Picker.Item label="Full-time" value="Full-time" />
-            <Picker.Item label="Part-time" value="Part-time" />
-            <Picker.Item label="Contract" value="Contract" />
-            <Picker.Item label="Internship" value="Internship" />
-          </Picker>
+          <TouchableOpacity
+            onPress={() => setShowJobTypePicker(!showJobTypePicker)}
+            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            <Text>{jobType || 'Select Job Type'}</Text>
+          </TouchableOpacity>
+          {showJobTypePicker && (
+            <Picker selectedValue={jobType} onValueChange={(item) => setJobType(item)}>
+              <Picker.Item label="Full-time" value="Full-time" />
+              <Picker.Item label="Part-time" value="Part-time" />
+              <Picker.Item label="Contract" value="Contract" />
+              <Picker.Item label="Internship" value="Internship" />
+            </Picker>
+          )}
 
-          <Picker
-            selectedValue={experienceLevel}
-            onValueChange={(item: any) => setExperienceLevel(item)}>
-            <Picker.Item label="Entry level" value="Entry level" />
-            <Picker.Item label="Mid level" value="Mid level" />
-            <Picker.Item label="Senior level" value="Senior level" />
-            <Picker.Item label="Internship" value="Internship" />
-          </Picker>
+          <TouchableOpacity
+            onPress={() => setShowExperienceLevelPicker(!showExperienceLevelPicker)}
+            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            <Text>{experienceLevel || 'Select Experience Level'}</Text>
+          </TouchableOpacity>
+          {showExperienceLevelPicker && (
+            <Picker
+              selectedValue={experienceLevel}
+              onValueChange={(item) => setExperienceLevel(item)}>
+              <Picker.Item label="Entry level" value="Entry level" />
+              <Picker.Item label="Mid level" value="Mid level" />
+              <Picker.Item label="Senior level" value="Senior level" />
+              <Picker.Item label="Internship" value="Internship" />
+            </Picker>
+          )}
 
-          <Picker selectedValue={remote} onValueChange={(item: any) => setRemote(item)}>
-            <Picker.Item label="Remote" value="Remote" />
-            <Picker.Item label="On-site" value="On-site" />
-            <Picker.Item label="Hybrid" value="Hybrid" />
-          </Picker>
+          <TouchableOpacity
+            onPress={() => setShowRemotePicker(!showRemotePicker)}
+            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            <Text>{remote || 'Select Work Mode'}</Text>
+          </TouchableOpacity>
+          {showRemotePicker && (
+            <Picker selectedValue={remote} onValueChange={(item) => setRemote(item)}>
+              <Picker.Item label="Remote" value="Remote" />
+              <Picker.Item label="On-site" value="On-site" />
+              <Picker.Item label="Hybrid" value="Hybrid" />
+            </Picker>
+          )}
 
           {/* Search Button */}
           <TouchableOpacity onPress={searchJobs} className="mt-4 rounded-md bg-red-500 p-3">
