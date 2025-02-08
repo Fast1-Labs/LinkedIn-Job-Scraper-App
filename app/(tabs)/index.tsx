@@ -59,7 +59,7 @@ const HomeScreen = () => {
     <SafeAreaView className="flex-1 bg-gray-100">
       <View className="p-4">
         {/* Header */}
-        <Text className="mb-4 text-center text-2xl font-bold text-red-500">Job Finder</Text>
+        <Text className="mb-4 text-center text-xl font-semibold text-gray-800">Job Finder</Text>
 
         {/* Search Section */}
         <View className="mb-4">
@@ -67,31 +67,31 @@ const HomeScreen = () => {
             placeholder="Location (e.g., New York)"
             value={location}
             onChangeText={setLocation}
-            className="mb-2 rounded-md border border-gray-300 p-2"
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2"
           />
           <TextInput
             placeholder="Job Title (e.g., Software Engineer)"
             value={keyword}
             onChangeText={setKeyword}
-            className="mb-2 rounded-md border border-gray-300 p-2"
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2"
           />
           <TextInput
             placeholder="Country (e.g., US, FR)"
             value={country}
             onChangeText={setCountry}
-            className="mb-2 rounded-md border border-gray-300 p-2"
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2"
           />
           <TextInput
             placeholder="Company Name (Optional)"
             value={company}
             onChangeText={setCompany}
-            className="mb-2 rounded-md border border-gray-300 p-2"
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2"
           />
 
           {/* Toggleable Dropdown Filters */}
           <TouchableOpacity
             onPress={() => setShowTimeRangePicker(!showTimeRangePicker)}
-            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2 shadow-sm">
             <Text>{timeRange || 'Select Time Range'}</Text>
           </TouchableOpacity>
           {showTimeRangePicker && (
@@ -105,7 +105,7 @@ const HomeScreen = () => {
 
           <TouchableOpacity
             onPress={() => setShowJobTypePicker(!showJobTypePicker)}
-            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2 shadow-sm">
             <Text>{jobType || 'Select Job Type'}</Text>
           </TouchableOpacity>
           {showJobTypePicker && (
@@ -119,7 +119,7 @@ const HomeScreen = () => {
 
           <TouchableOpacity
             onPress={() => setShowExperienceLevelPicker(!showExperienceLevelPicker)}
-            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2 shadow-sm">
             <Text>{experienceLevel || 'Select Experience Level'}</Text>
           </TouchableOpacity>
           {showExperienceLevelPicker && (
@@ -135,7 +135,7 @@ const HomeScreen = () => {
 
           <TouchableOpacity
             onPress={() => setShowRemotePicker(!showRemotePicker)}
-            className="mb-2 rounded-md border border-gray-300 bg-white p-2">
+            className="mb-2 rounded-md border border-gray-200 bg-white p-2 shadow-sm">
             <Text>{remote || 'Select Work Mode'}</Text>
           </TouchableOpacity>
           {showRemotePicker && (
@@ -147,8 +147,10 @@ const HomeScreen = () => {
           )}
 
           {/* Search Button */}
-          <TouchableOpacity onPress={searchJobs} className="mt-4 rounded-md bg-red-500 p-3">
-            <Text className="text-center text-white">Search Jobs</Text>
+          <TouchableOpacity
+            onPress={searchJobs}
+            className="mt-4 rounded-md bg-red-600 p-3 shadow-md">
+            <Text className="text-center font-semibold text-white">Search Jobs</Text>
           </TouchableOpacity>
         </View>
 
@@ -164,11 +166,11 @@ const HomeScreen = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View className="mb-2 rounded-lg bg-white p-4 shadow-md">
-              <Text className="text-lg font-bold text-black">{item.title}</Text>
-              <Text className="text-gray-500">
+              <Text className="text-lg font-semibold text-gray-800">{item.title}</Text>
+              <Text className="text-gray-600">
                 {item.company} - {item.location}
               </Text>
-              <Text className="text-gray-400">{item.date_posted}</Text>
+              <Text className="text-gray-500">{item.date_posted}</Text>
             </View>
           )}
           ListEmptyComponent={

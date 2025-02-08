@@ -1,3 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base;  
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@tailwind components;  
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7fafc; /* Light gray background */
+}
+@tailwind utilities;  
+.text-gray-200 {
+  color: #edf2f7; /* Soft gray for text */
+}
+.text-gray-600 {
+  color: #718096; /* Darker gray for better contrast */
+}
